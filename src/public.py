@@ -18,6 +18,7 @@ https://www.gnu.org/licenses/gpl-3.0.html
 请在使用本程序之前确保遵守相关法律法规和网站的使用政策，如有疑问，请咨询法律顾问。
 
 无论您对程序进行了任何操作，请始终保留此信息。
+20240627.yy尝试更换api.（from:jmysif）
 """
 
 import json
@@ -100,10 +101,6 @@ def get_fanqie(url, user_agent, mode='default'):
 
     # 拼接小说内容字符串
     content = f"""如果需要小说更新，请勿修改文件名
-使用 @星隅(xing-yv) 所作开源工具下载
-开源仓库地址:https://github.com/xing-yv/fanqie-novel-download
-Gitee:https://gitee.com/xingyv1024/fanqie-novel-download/
-任何人无权限制您访问本工具，如果有向您提供代下载服务者未事先告知您工具的获取方式，请向作者举报:xing_yv@outlook.com
 
 {title}
 {info}
@@ -144,9 +141,7 @@ def get_api(chapter, headers, mode='default'):
     chapter_id = re.search(r"/reader/(\d+)", chapter_url).group(1)
 
     # 构造 api 网址
-    api_url = (f"https://novel.snssdk.com/api/novel/book/reader/full/v1/?device_platform=android&"
-               f"parent_enterfrom=novel_channel_search.tab.&aid=2329&platform_id=1&group_id="
-               f"{chapter_id}&item_id={chapter_id}")
+    api_url = (f"https://fqnovel.api-server.onflashdrive.app/content/{chapter_id}")
     # 尝试获取章节内容
     chapter_content = None
     while True:
