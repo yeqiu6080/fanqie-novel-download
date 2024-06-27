@@ -66,15 +66,11 @@ def print_usage():
     print(Fore.YELLOW + Style.BRIGHT + "番茄小说下载工具")
     print("""用户须知：
 此程序开源免费，如果您付费获取，请您立即举报商家。
-本程序灵感及api来自于ibxff所作用户脚本，详情请到更多中查看；；
+本程序灵感及api来自于jmysif所作用户脚本，详情请到更多中查看；；
 此程序使用GPLv3开源许可证发布。
-
 使用本程序代表您已阅读并同意本程序最终用户许可协议(EULA)（初次启动时已展示，可在更多中再次阅读）。
 （包括不得销售此程序副本，提供代下载服务需明确告知用户开源地址等）
-
-QQ： 外1群：149050832  外2群：667146297
 如果想要指定开始下载的章节，请在输入目录页链接时按Ctrl+C。
-
 免责声明：
 该程序仅用于学习和研究Python网络爬虫和网页处理技术，不得用于任何非法活动或侵犯他人权益的行为。
 使用本程序所产生的一切法律责任和风险，均由用户自行承担，与作者和项目协作者、贡献者无关。
@@ -137,31 +133,23 @@ def start():
             break
         elif choice == '6':
             clear_screen()
-            print("""作者：星隅（xing-yv）
-版权所有（C）2023 星隅（xing-yv）
-
+            print("""原作者：星隅（xing-yv）
+20240627.yy接盘
 本软件根据GNU通用公共许可证第三版（GPLv3）发布；
 你可以在以下位置找到该许可证的副本：
 https://www.gnu.org/licenses/gpl-3.0.html
-
 根据GPLv3的规定，您有权在遵循许可证的前提下自由使用、修改和分发本软件。
 请注意，根据许可证的要求，任何对本软件的修改和分发都必须包括原始的版权声明和GPLv3的完整文本。
-
 本软件提供的是按"原样"提供的，没有任何明示或暗示的保证，包括但不限于适销性和特定用途的适用性。作者不对任何直接或间接损害或其他责任承担任何责任。在适用法律允许的最大范围内，作者明确放弃了所有明示或暗示的担保和条件。
-
 免责声明：
 该程序仅用于学习和研究Python网络爬虫和网页处理技术，不得用于任何非法活动或侵犯他人权益的行为。使用本程序所产生的一切法律责任和风险，均由用户自行承担，与作者和项目贡献者无关。作者不对因使用该程序而导致的任何损失或损害承担任何责任。
-
 请在使用本程序之前确保遵守相关法律法规和网站的使用政策，如有疑问，请咨询法律顾问。
-
-ibxff所作用户脚本:https://greasyfork.org/zh-CN/scripts/476688
-开源仓库地址:https://github.com/shing-yu/fanqie-novel-download
-gitee地址:https://gitee.com/xingyv1024/fanqie-novel-download
-作者B站主页:https://space.bilibili.com/1920711824
-提出反馈:https://github.com/shing-yu/fanqie-novel-download/issues/new
+jmysif所作用户脚本:https://greasyfork.org/zh-CN/scripts/490331-更换api-番茄全文在线免费读
+开源仓库地址:https://github.com/yeqiu6080/fanqie-novel-download
+提出反馈:https://github.com/yeqiu6080/fanqie-novel-download/issues/new
 (请在右侧Label处选择issue类型以得到更快回复)
 
-最终用户许可协议(EULA)：https://gitee.com/xingyv1024/fanqie-novel-download/blob/main/EULA.md
+最终用户许可协议(EULA)：https://github.com/yeqiu6080/fanqie-novel-download/blob/main/EULA.md
 """)
             input("按Enter键返回...")
             clear_screen()
@@ -173,7 +161,7 @@ gitee地址:https://gitee.com/xingyv1024/fanqie-novel-download
             return
         elif choice == '8':
             clear_screen()
-            contributors_url = 'https://gitee.com/xingyv1024/fanqie-novel-download/raw/main/CONTRIBUTORS.md'
+            contributors_url = 'https://github.com/yeqiu6080/fanqie-novel-download/raw/main/CONTRIBUTORS.md'
             try:
                 contributors = requests.get(contributors_url, timeout=5, proxies=proxies)
 
@@ -191,13 +179,13 @@ gitee地址:https://gitee.com/xingyv1024/fanqie-novel-download
             clear_screen()
             # 确认退出
             while True:
-                qd = input("您确定要退出程序吗(yes/no)(默认:no): ")
+                qd = input("您确定要退出程序吗(是/否)(默认:否): ")
                 if not qd:
                     qd = "no"
-                if qd.lower() == "yes":
+                if qd.lower() == "yes" or qd.lower() == "是" or qd.lower() == "1" :
                     input("按Enter退出程序...")
                     break
-                elif qd.lower() == "no":
+                elif qd.lower() == "no" or qd.lower() == "0" or qd.lower() == "否":
                     flag = False
                     break
                 else:
@@ -212,12 +200,12 @@ gitee地址:https://gitee.com/xingyv1024/fanqie-novel-download
             cho = input("1-> 撤回同意  2-> 重置默认路径\n")
             if cho == '1':
                 while True:
-                    qd = input("您确定要撤回同意吗(yes/no)(默认:no): ")
+                    qd = input("您确定要撤回同意吗(是/否)(默认:否)): ")
                     if not qd:
                         qd = "no"
-                    if qd.lower() == "yes":
+                    if qd.lower() == "yes" or qd.lower() == "是" or qd.lower() == "1" :
                         break
-                    elif qd.lower() == "no":
+                    elif qd.lower() == "no" or qd.lower() == "0" or qd.lower() == "否":
                         flag2 = False
                         break
                     else:
