@@ -48,9 +48,9 @@ user_folder = os.path.expanduser("~")
 data_path = os.path.join(user_folder, "fanqie_data")
 eula_path = os.path.join(data_path, "eula.txt")
 config_path = os.path.join(data_path, "config.json")
-eula_url = "https://gitee.com/xingyv1024/fanqie-novel-download/raw/main/EULA.md"
-license_url = "https://gitee.com/xingyv1024/fanqie-novel-download/raw/main/LICENSE.md"
-license_url_zh = "https://gitee.com/xingyv1024/fanqie-novel-download/raw/main/LICENSE-ZH.md"
+eula_url = "https://github.com/yeqiu6080/fanqie-novel-download/raw/main/EULA.md"
+license_url = "https://github.com/yeqiu6080/fanqie-novel-download/raw/main/LICENSE.md"
+license_url_zh = "https://github.com/yeqiu6080/fanqie-novel-download/raw/main/LICENSE-ZH.md"
 os.makedirs(data_path, exist_ok=True)
 book_id = None
 start_chapter_id = "0"
@@ -66,7 +66,7 @@ def print_usage():
     print(Fore.YELLOW + Style.BRIGHT + "番茄小说下载工具")
     print("""用户须知：
 此程序开源免费，如果您付费获取，请您立即举报商家。
-本程序灵感及api来自于jmysif所作用户脚本，详情请到更多中查看；；
+本程序灵感及api来自于ibxff所作用户脚本，详情请到更多中查看(新api来自jimsif）；；
 此程序使用GPLv3开源许可证发布。
 使用本程序代表您已阅读并同意本程序最终用户许可协议(EULA)（初次启动时已展示，可在更多中再次阅读）。
 （包括不得销售此程序副本，提供代下载服务需明确告知用户开源地址等）
@@ -161,7 +161,7 @@ jmysif所作用户脚本:https://greasyfork.org/zh-CN/scripts/490331-更换api-�
             return
         elif choice == '8':
             clear_screen()
-            contributors_url = 'https://github.com/yeqiu6080/fanqie-novel-download/raw/main/CONTRIBUTORS.md'
+            contributors_url = 'https://raw.githubusercontent.com/yeqiu6080/fanqie-novel-download/main/CONTRIBUTORS.md'
             try:
                 contributors = requests.get(contributors_url, timeout=5, proxies=proxies)
 
@@ -478,9 +478,9 @@ def perform_user_mode_action():
 
 # 检查更新
 def check_update(now_version):
-    owner = "xingyv1024"
+    owner = "yeqiu6080"
     repo = "fanqie-novel-download"
-    api_url = f"https://gitee.com/api/v5/repos/{owner}/{repo}/releases/latest"
+    api_url = f"https://api.github.com/{owner}/{repo}/releases/latest"
 
     print("正在检查更新...")
     print(f"当前版本: {now_version}")
@@ -517,7 +517,7 @@ def check_update(now_version):
                     # 点击确认跳转到下载页面
                     def open_url():
                         import webbrowser
-                        webbrowser.open("https://gitee.com/xingyv1024/fanqie-novel-download/releases/latest")
+                        webbrowser.open("https://github.com/yeqiu6080/fanqie-novel-download/releases/latest")
                         exit(0)
 
                     root.withdraw()
@@ -537,7 +537,7 @@ def check_update(now_version):
                     # 点击确认跳转到下载页面
                     def open_url():
                         import webbrowser
-                        webbrowser.open("https://gitee.com/xingyv1024/fanqie-novel-download/releases/latest")
+                        webbrowser.open("https://github.com/yeqiu6080/fanqie-novel-download/releases/latest")
                         exit(0)
 
                     root.withdraw()
@@ -551,7 +551,7 @@ def check_update(now_version):
                     print(f"检测到通知：\n{release_describe}")
                     input("按Enter键继续...\n")
                     return
-                print("检测到新版本\n更新可用！请到 https://gitee.com/xingyv1024/fanqie-novel-download/releases/latest 下载最新版")
+                print("检测到新版本\n更新可用！请到 https://github.com/yeqiu6080/fanqie-novel-download/releases/latest 下载最新版")
                 print(f"更新内容:\n{release_describe}")
                 input("按Enter键继续...\n")
             else:
