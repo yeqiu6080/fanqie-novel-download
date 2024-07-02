@@ -202,9 +202,7 @@ def fanqie_d(url, encoding, user_agent, path_choice, data_folder, start_chapter_
             tqdm.write(Fore.YELLOW + Style.BRIGHT + f"[DEBUG]章节id:{chapter_id}")
 
             # 构造 api 网址
-            api_url = (f"https://novel.snssdk.com/api/novel/book/reader/full/v1/?device_platform=android&"
-                       f"parent_enterfrom=novel_channel_search.tab.&aid=2329&platform_id=1&group_id="
-                       f"{chapter_id}&item_id={chapter_id}")
+            api_url = (f"https://fqnovel.pages.dev/content?item_id={chapter_id}")
             tqdm.write(Fore.YELLOW + Style.BRIGHT + f"[DEBUG]api网址:{api_url}")
 
             # 尝试获取章节内容
