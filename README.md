@@ -1,3 +1,4 @@
+## 日志240702：待更换更新api+jimsif的api返回html内容而非json，似乎需要小修
 ## yy.20240627尝试更换api（api来自jmysif）
   本程序灵感即api均来源于ibxff所作用户脚本（MIT），你可以在[此处](https://greasyfork.org/zh-CN/scripts/476688-%E7%95%AA%E8%8C%84%E5%85%A8%E6%96%87%E5%9C%A8%E7%BA%BF%E5%85%8D%E8%B4%B9%E8%AF%BB)获取。  
 QQ： 外1群：149050832  外2群：667146297  频道：https://pd.qq.com/s/hd0ciuont
