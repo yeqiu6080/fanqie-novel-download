@@ -5,3 +5,4 @@ ebooklib~=0.18
 tqdm
 colorama
 PyYAML
+lxml
