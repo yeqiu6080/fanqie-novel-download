@@ -141,7 +141,7 @@ def get_api(chapter, headers, mode='default'):
     chapter_id = re.search(r"/reader/(\d+)", chapter_url).group(1)
 
     # 构造 api 网址
-    api_url = (f"https://fqnovel.api-server.onflashdrive.app/content/{chapter_id}")
+    api_url = (f"https://fqnovel.pages.dev/content?item_id={chapter_id}")
     # 尝试获取章节内容
     chapter_content = None
     while True:
