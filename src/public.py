@@ -61,16 +61,10 @@ def rename(name):
 
 
 def fix_publisher(text):
-    # 针对性去除所有 出版物 所携带的标签
-    text = re.sub(r'<p class=".*?">', '', text)
-    text = re.sub(r'<!--\?xml.*?>', '', text)
-    text = re.sub(r'<link .*?/>', '', text)
-    text = re.sub(r'<meta .*?/>', '', text)
-    text = re.sub(r'<h1 .*?>', '', text)
-    text = re.sub(r'<br/>', '', text)
-    text = re.sub(r'<!DOCTYPE html .*?>', '', text)
-    text = re.sub(r'<span .*?>', '', text)
-    text = re.sub(r'<html .*?>', '', text)
+    from lxml import html
+    # 替换非法字符
+    temp = html.fromstring(text)
+    text = temp.text_content()
     return text
 
 
@@ -100,7 +94,7 @@ def get_fanqie(url, user_agent, mode='default'):
     intro = soup.find("div", class_="page-abstract-content").get_text()
 
     # 拼接小说内容字符串
-    content = f"""如果需要小说更新，请勿修改文件名
+    content = f"""如果需要更新，请勿修改文件名
 
 {title}
 {info}
@@ -149,10 +143,10 @@ def get_api(chapter, headers, mode='default'):
         while retry_count < 4:  # 设置最大重试次数
             try:
                 # 获取 api 响应
-                api_response = requests.get(api_url, headers=headers, timeout=5, proxies=proxies)
+                api_response = requests.get(api_url, headers=headers, timeout=10, proxies=proxies)
 
                 # 解析 api 响应为 json 数据
-                api_data = api_response.json()
+                api_data = api_response.text
             except Exception as e:
                 if retry_count == 1:
                     tqdm.write(Fore.RED + Style.BRIGHT + f"发生异常: {e}")
@@ -161,14 +155,8 @@ def get_api(chapter, headers, mode='default'):
                 retry_count += 1  # 否则重试
                 continue
 
-            if "data" in api_data and "content" in api_data["data"]:
-                chapter_content = api_data["data"]["content"]
-                break  # 如果成功获取章节内容，跳出重试循环
-            else:
-                if retry_count == 1:
-                    tqdm.write(f"{chapter_title} 获取失败，正在尝试重试...")
-                tqdm.write(f"第 ({retry_count}/3) 次重试获取章节内容")
-                retry_count += 1  # 否则重试
+            chapter_content = api_data
+            break
 
         if retry_count == 4:
             import tkinter as tk
@@ -238,17 +226,18 @@ def get_api(chapter, headers, mode='default'):
         else:
             break
 
-    # 提取文章标签中的文本
-    chapter_text = re.search(r"<article>([\s\S]*?)</article>", chapter_content).group(1)
+
+    
 
     if mode == 'epub':
         return chapter_title, chapter_text, chapter_id
 
     # 将 <p> 标签替换为换行符
-    chapter_text = re.sub(r"<p\b[^>]*>", "\n", chapter_text)
+    chapter_text = chapter_content
 
+    chapter_text = chapter_text.replace("<p>", "\n")
+    
     # 去除其他 html 标签
-    chapter_text = re.sub(r"<[\x00-\x7F]*?>", "", chapter_text)
 
     chapter_text = fix_publisher(chapter_text)
 

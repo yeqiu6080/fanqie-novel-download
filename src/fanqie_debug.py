@@ -217,7 +217,7 @@ def fanqie_d(url, encoding, user_agent, path_choice, data_folder, start_chapter_
                         api_response = requests.get(api_url, headers=headers, timeout=5, proxies=proxies)
 
                         # 解析 api 响应为 json 数据
-                        api_data = api_response.json()
+                        api_data = api_response.text
                     except Exception as e:
                         if retry_count == 1:
                             tqdm.write(Fore.RED + Style.BRIGHT + f"发生异常: {e}")
@@ -225,15 +225,8 @@ def fanqie_d(url, encoding, user_agent, path_choice, data_folder, start_chapter_
                         tqdm.write(f"第 ({retry_count}/3) 次重试获取章节内容")
                         retry_count += 1  # 否则重试
                         continue
-
-                    if "data" in api_data and "content" in api_data["data"]:
-                        chapter_content = api_data["data"]["content"]
-                        break  # 如果成功获取章节内容，跳出重试循环
-                    else:
-                        if retry_count == 1:
-                            tqdm.write(f"{chapter_title} 获取失败，正在尝试重试...")
-                        tqdm.write(f"第 ({retry_count}/3) 次重试获取章节内容")
-                        retry_count += 1  # 否则重试
+                    chapter_content = api_data
+                    break
 
                 if retry_count == 4:
                     import tkinter as tk
@@ -312,17 +305,13 @@ def fanqie_d(url, encoding, user_agent, path_choice, data_folder, start_chapter_
                 break
 
             # 提取文章标签中的文本
-            chapter_text = re.search(r"<article>([\s\S]*?)</article>", chapter_content).group(1)
+            chapter_text = chapter_content
 
             # 将 <p> 标签替换为换行符
-            chapter_text = re.sub(r"<p\b[^>]*>", "\n", chapter_text)
+            chapter_text = chapter_text.replace("<p>", "\n")
 
             # 去除其他 html 标签
-            chapter_text = re.sub(r"<[\x00-\x7F]*?>", "", chapter_text)
-
-            # 针对性去除所有 出版物 所携带的标签
-            chapter_text = p.fix_publisher(chapter_text)
-
+            
             # 在小说内容字符串中添加章节标题和内容
             content += f"\n\n\n{chapter_title}\n{chapter_text}"
 
