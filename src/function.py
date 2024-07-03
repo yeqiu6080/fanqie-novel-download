@@ -48,9 +48,9 @@ user_folder = os.path.expanduser("~")
 data_path = os.path.join(user_folder, "fanqie_data")
 eula_path = os.path.join(data_path, "eula.txt")
 config_path = os.path.join(data_path, "config.json")
-eula_url = "https://github.com/yeqiu6080/fanqie-novel-download/raw/main/EULA.md"
-license_url = "https://github.com/yeqiu6080/fanqie-novel-download/raw/main/LICENSE.md"
-license_url_zh = "https://github.com/yeqiu6080/fanqie-novel-download/raw/main/LICENSE-ZH.md"
+eula_url = "https://raw.githubusercontent.com/yeqiu6080/fanqie-novel-download/main/EULA.md"
+license_url = "https://raw.githubusercontent.com/yeqiu6080/fanqie-novel-download/main/LICENSE.md"
+license_url_zh = "https://raw.githubusercontent.com/yeqiu6080/fanqie-novel-download/main/LICENSE-ZH.md"
 os.makedirs(data_path, exist_ok=True)
 book_id = None
 start_chapter_id = "0"
@@ -750,9 +750,4 @@ def check_instance():
     try:
         sock.bind(('localhost', 51522))
     except socket.error:
-        print("另一个程序进程已经在运行中，请勿重复运行")
-        print("将在5秒后退出程序")
-        for i in range(5, 0, -1):
-            print(f"{i}")
-            time.sleep(1)
-        exit(1)
+        print("目前为多开模式·不建议同时开启多个实例")
