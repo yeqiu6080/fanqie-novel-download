@@ -35,6 +35,7 @@ import hashlib
 import public as p
 from requests.exceptions import Timeout
 from colorama import Fore, Style, init
+import config as st
 
 init(autoreset=True)
 
@@ -53,7 +54,7 @@ def fanqie_d(url, encoding, user_agent, path_choice, data_folder, start_chapter_
 
     # 获取网页源码
     try:
-        response = requests.get(url, headers=headers, timeout=20, proxies=proxies)
+        response = requests.get(url, headers=headers, timeout=st.fq_timeout, proxies=proxies)
     except Timeout:
         print(Fore.RED + Style.BRIGHT + "连接超时，请检查网络连接是否正常。")
         return
@@ -214,10 +215,11 @@ def fanqie_d(url, encoding, user_agent, path_choice, data_folder, start_chapter_
                 while retry_count < 4:  # 设置最大重试次数
                     try:
                         # 获取 api 响应
-                        api_response = requests.get(api_url, headers=headers, timeout=5, proxies=proxies)
+                        api_response = requests.get(api_url, headers=headers, timeout=st.api_timeout, proxies=proxies)
 
                         # 解析 api 响应为 json 数据
                         api_data = api_response.text
+                        tqdm.write(Fore.YELLOW + Style.BRIGHT + f"[DEBUG]api返回:{str(api_data)}")
                     except Exception as e:
                         if retry_count == 1:
                             tqdm.write(Fore.RED + Style.BRIGHT + f"发生异常: {e}")

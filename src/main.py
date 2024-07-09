@@ -24,7 +24,7 @@ import function as f
 from sys import exit
 
 version = "v2.10.1.2"
-
+print(f"\n欢迎使用番茄下载器！\n当前版本：{version}\n")
 # 检查另一个实例是否正在运行
 f.check_instance()
 

@@ -34,6 +34,8 @@ import platform
 from sys import exit
 from packaging import version
 from colorama import Fore, Style, init
+import config as st
+
 
 init(autoreset=True)
 
@@ -163,7 +165,7 @@ jmysif所作用户脚本:https://greasyfork.org/zh-CN/scripts/490331-更换api-�
             clear_screen()
             contributors_url = 'https://raw.githubusercontent.com/yeqiu6080/fanqie-novel-download/main/CONTRIBUTORS.md'
             try:
-                contributors = requests.get(contributors_url, timeout=5, proxies=proxies)
+                contributors = requests.get(contributors_url, timeout=st.gh_timeout, proxies=proxies)
 
                 # 检查响应状态码
                 if contributors.status_code == 200:
@@ -494,7 +496,7 @@ def check_update(now_version):
     # noinspection PyBroadException
     try:
         # 发送GET请求以获取最新的发行版信息
-        response = requests.get(api_url, timeout=5, proxies=proxies)
+        response = requests.get(api_url, timeout=st.gh_timeout, proxies=proxies)
 
         if response.status_code != 200:
             print(f"请求失败，状态码：{response.status_code}")
@@ -595,7 +597,7 @@ def check_eula():
         eula_date_old = eula_txt.splitlines()[5]
         # noinspection PyBroadException
         try:
-            eula_text = requests.get(eula_url, timeout=10, proxies=proxies).text
+            eula_text = requests.get(eula_url, timeout=st.gh_timeout, proxies=proxies).text
         except Exception:
             print("获取最终用户许可协议失败，请检查网络连接")
             input("按Enter键继续...\n")
@@ -641,9 +643,9 @@ eula_date:
 def agree_eula():
     # noinspection PyBroadException
     try:
-        eula_text = requests.get(eula_url, timeout=10, proxies=proxies).text
-        license_text = requests.get(license_url, timeout=10, proxies=proxies).text
-        license_text_zh = requests.get(license_url_zh, timeout=10, proxies=proxies).text
+        eula_text = requests.get(eula_url, timeout=st.gh_timeout, proxies=proxies).text
+        license_text = requests.get(license_url, timeout=st.gh_timeout, proxies=proxies).text
+        license_text_zh = requests.get(license_url_zh, timeout=st.gh_timeout, proxies=proxies).text
     except Exception:
         print("获取最终用户许可协议失败，请检查网络连接")
         input("按Enter键继续...\n")

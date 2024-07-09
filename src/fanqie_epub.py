@@ -32,6 +32,7 @@ from tqdm import tqdm
 import public as p
 from requests.exceptions import Timeout
 from colorama import Fore, Style, init
+import config as st
 
 init(autoreset=True)
 
@@ -52,7 +53,7 @@ def fanqie_epub(url, user_agent, path_choice, config_path):
     try:
         soup, title, author_name, intro, img_url = p.get_fanqie(url, user_agent, mode='epub')
         # 下载封面
-        response = requests.get(img_url, timeout=20)
+        response = requests.get(img_url, timeout=st.fq_timeout)
     except Timeout:
         print(Fore.RED + Style.BRIGHT + "连接超时，请检查网络连接是否正常。")
         return

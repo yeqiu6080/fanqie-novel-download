@@ -29,6 +29,7 @@ from bs4 import BeautifulSoup
 import requests
 from tqdm import tqdm
 from colorama import Fore, Style, init
+import config as st
 
 init(autoreset=True)
 proxies = {
